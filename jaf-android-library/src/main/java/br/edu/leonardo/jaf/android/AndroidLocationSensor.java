@@ -16,7 +16,7 @@ import javax.measure.Quantity;
 
 import br.edu.leonardo.jaf.sensors.LocationSensorValue;
 import br.edu.leonardo.jaf.sensors.Sensor;
-import br.edu.leonardo.jaf.sensors.SensorInitializationException;
+import br.edu.leonardo.jaf.sensors.SensorException;
 import tec.units.ri.AbstractUnit;
 import tec.units.ri.unit.MetricPrefix;
 import tec.units.ri.unit.Units;
@@ -50,9 +50,9 @@ public class AndroidLocationSensor extends Sensor implements LocationListener {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public void init() throws SensorInitializationException {
+    public void init() throws SensorException {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            throw new SensorInitializationException("The application does not have permissions to access user location.");
+            throw new SensorException(this, "The application does not have permissions to access user location.");
         }
         locationMgr.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,

@@ -8,7 +8,7 @@ import android.hardware.SensorManager;
 import android.os.Build;
 
 import br.edu.leonardo.jaf.sensors.Sensor;
-import br.edu.leonardo.jaf.sensors.SensorInitializationException;
+import br.edu.leonardo.jaf.sensors.SensorException;
 import br.edu.leonardo.jaf.sensors.SensorValue;
 
 /**
@@ -48,9 +48,9 @@ public abstract class AndroidDeviceSensor extends Sensor implements SensorEventL
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
-    public void init() throws SensorInitializationException {
+    public void init() throws SensorException {
         if(!sensorMgr.registerListener(this, sensor, samplingPeriod, reportLatency))
-            throw new SensorInitializationException("The sensor is not supported or it is not successfully enabled.");
+            throw new SensorException(this, "The sensor is not supported or it is not successfully enabled.");
     }
 
     @Override
